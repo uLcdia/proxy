@@ -1,0 +1,5 @@
+hostname = photos.adobe.io, lcs-mobile-cops.adobe.io, app.bilibili.com
+
+^https:\/\/photos\.adobe\.io\/v2\/accounts* url script-response-body https://raw.githubusercontent.com/uLcdia/proxy/main/lightroom.js
+^https:\/\/lcs-mobile-cops\.adobe\.io\/mobile_profile url script-response-body https://raw.githubusercontent.com/uLcdia/proxy/main/photoshopexpress.js
+^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? url script-response-body https://raw.githubusercontent.com/uLcdia/proxy/main/bilibili.js
