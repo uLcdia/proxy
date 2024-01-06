@@ -4,12 +4,12 @@ obj= {
   "subscriptions": [
     {
       "isActive": true,
-      "source": "web",
+      "source": "ios",
       "type": "pro",
       "interval": "yearly",
       "billingInfo": {
         "currency": "USD",
-        "nextBillingPrice": 59.98999999999999
+        "nextBillingPrice": 99.98999999999999
       },
       "intervalCount": 1,
       "activeUntil": "2099-10-10T08:04:21+00:00",
@@ -19,12 +19,12 @@ obj= {
     }
   ],
   "isActive": true,
-  "source": "web",
+  "source": "ios",
   "type": "pro",
   "interval": "yearly",
   "billingInfo": {
     "currency": "USD",
-    "nextBillingPrice": 59.98999999999999
+    "nextBillingPrice": 99.98999999999999
   },
   "intervalCount": 1,
   "activeUntil": "2099-10-10T08:04:21+00:00",
