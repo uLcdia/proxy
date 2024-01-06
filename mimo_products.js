@@ -1,4 +1,6 @@
-{
+var obj = JSON.parse($response.body);
+
+obj = {
   "purchasedProducts" : [
 
   ],
@@ -59,4 +61,6 @@
       "coinPrice" : 0
     }
   ]
-}
+};
+
+$done({body: JSON.stringify(obj)});
