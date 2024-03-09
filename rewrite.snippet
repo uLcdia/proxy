@@ -6,4 +6,3 @@ hostname = photos.adobe.io, lcs-mobile-cops.adobe.io, app.bilibili.com, mb3admin
 ^https:\/\/mb3admin\.com\/admin\/service(\/registration\/validateDevice|\/appstore\/register|\/registration\/validate|\/registration\/getStatus|\/supporter\/retrievekey) url script-echo-response https://raw.githubusercontent.com/uLcdia/proxy/main/emby.js
 ^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://raw.githubusercontent.com/uLcdia/proxy/main/wechat.js
 ^https:\/\/api\.getmimo\.com\/v1\/user\/lives* url script-response-body https://raw.githubusercontent.com/uLcdia/proxy/main/mimo_lives.js
-^https:\/\/weather-data\.apple\.com\/v2\/weather\/([\w-]+)\/(-?[0-9]+\.[0-9]+)\/(-?[0-9]+\.[0-9]+)\? url script-response-body https://raw.githubusercontent.com/uLcdia/proxy/main/weather.js
