@@ -1,6 +1,4 @@
 # proxy
-**Authors**
-
-bilibili.js Cuttlefish
+**sources**
 
 lightroom.js, photoshopexpress.js litieyin
