@@ -78,7 +78,7 @@ jobs:
           # Generate domain YAML
           domain_content = f"""# NAME: Tracker Domain List\n# SOURCE: {input_url}\npayload:\n"""
           for domain in sorted(domains):
-              domain_content += f"  - DOMAIN-SUFFIX,{domain}\n"
+              domain_content += f"  - \"+.{domain}\"\n"
 
           # Generate IP YAML
           ip_content = f"""# NAME: Tracker IP List\n# SOURCE: {input_url}\npayload:\n"""
