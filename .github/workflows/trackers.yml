@@ -91,6 +91,8 @@ jobs:
               new_content_lines.append(f"  - DOMAIN-SUFFIX,{domain}")
           new_content = "\n".join(new_content_lines) + "\n" # Ensure trailing newline
 
+          github_output_path = os.environ.get("GITHUB_OUTPUT")
+
           # Check if the content has changed
           if new_content != existing_content:
               with open(output_file, "w") as f:
