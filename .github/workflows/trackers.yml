@@ -1,0 +1,117 @@
+name: Update Tracker List
+
+on:
+  schedule:
+    # Runs daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  generate-tracker-list:
+    runs-on: ubuntu-latest # Specifies the operating system for the job
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Action to check out your repository code
+
+      - name: Set up Python
+        uses: actions/setup-python@v5 # Action to set up Python environment
+        with:
+          python-version: '3.x' # Use the latest Python 3 version
+
+      - name: Install Python dependencies
+        run: pip install tldextract # Install the tldextract library for accurate domain parsing
+
+      - name: Download tracker list
+        run: |
+          # Download the all.txt file from the specified URL
+          curl -o all.txt https://raw.githubusercontent.com/XIU2/TrackersListCollection/refs/heads/master/all.txt
+
+      - name: Process and generate YAML
+        id: generate_yaml # Give this step an ID to reference its outputs
+        run: |
+          python -c '
+          import urllib.parse
+          import tldextract
+          import ipaddress
+          import os
+
+          input_file = "all.txt"
+          output_file = "trackers.yaml" # The name of the output YAML file
+
+          domains = set() # Use a set to store unique domains
+
+          with open(input_file, "r") as f:
+              for line in f:
+                  line = line.strip()
+                  if not line:
+                      continue
+
+                  try:
+                      parsed_url = urllib.parse.urlparse(line)
+                      hostname = parsed_url.hostname
+
+                      if not hostname:
+                          continue
+
+                      # Check if the hostname is an IP address (IPv4 or IPv6)
+                      try:
+                          # ipaddress.ip_address expects a string, remove brackets for IPv6 check
+                          ipaddress.ip_address(hostname.strip("[]"))
+                          continue # It"s an IP, skip it as we only want domain suffixes
+                      except ValueError:
+                          pass # Not an IP, proceed
+
+                      # Extract the registrable domain using tldextract
+                      ext = tldextract.extract(hostname)
+                      if ext.domain and ext.suffix:
+                          registrable_domain = f"{ext.domain}.{ext.suffix}"
+                          domains.add(registrable_domain)
+
+                  except Exception:
+                      # Optionally, print a warning for lines that couldn"t be processed
+                      # print(f"Warning: Could not process line: {line}")
+                      pass
+
+          # Load existing content to compare and avoid unnecessary commits
+          existing_content = ""
+          if os.path.exists(output_file):
+              with open(output_file, "r") as f:
+                  existing_content = f.read()
+
+          # Generate the new YAML content
+          new_content_lines = []
+          new_content_lines.append("# NAME: Tracker List")
+          new_content_lines.append("# SOURCE: https://github.com/XIU2/TrackersListCollection/blob/master/all.txt")
+          new_content_lines.append("payload:")
+          for domain in sorted(list(domains)): # Sort domains for consistent output
+              new_content_lines.append(f"  - DOMAIN-SUFFIX,{domain}")
+          new_content = "\n".join(new_content_lines) + "\n" # Ensure trailing newline
+
+          # Check if the content has changed
+          if new_content != existing_content:
+              with open(output_file, "w") as f:
+                  f.write(new_content)
+              print("Tracker list updated.")
+              # Set an output variable to indicate that changes were made
+              print(f"::set-output name=updated::true")
+          else:
+              print("Tracker list is already up-to-date.")
+              print(f"::set-output name=updated::false")
+          '
+        shell: bash # Use bash to execute the multi-line Python script
+
+      - name: Configure Git
+        # Only run this step if the 'updated' output from the previous step is 'true'
+        if: steps.generate_yaml.outputs.updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]" # Set the Git user name
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push changes
+        # Only run this step if the 'updated' output from the generate_yaml step is 'true'
+        if: steps.generate_yaml.outputs.updated == 'true'
+        run: |
+          git add trackers.yaml
+          git commit -m "Update tracker list"
+          git push
