@@ -96,11 +96,14 @@ jobs:
               with open(output_file, "w") as f:
                   f.write(new_content)
               print("Tracker list updated.")
-              # Set an output variable to indicate that changes were made
-              print(f"::set-output name=updated::true")
+              if github_output_path:
+                  with open(github_output_path, "a") as fo:
+                      fo.write("updated=true\n")
           else:
               print("Tracker list is already up-to-date.")
-              print(f"::set-output name=updated::false")
+              if github_output_path:
+                  with open(github_output_path, "a") as fo:
+                      fo.write("updated=false\n")
           '
         shell: bash # Use bash to execute the multi-line Python script
 
