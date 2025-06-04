@@ -6,6 +6,9 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch: # Allows manual triggering of the workflow
 
+permissions:
+  contents: write
+
 jobs:
   generate-tracker-list:
     runs-on: ubuntu-latest # Specifies the operating system for the job
