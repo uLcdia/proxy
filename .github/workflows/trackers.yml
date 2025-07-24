@@ -22,9 +22,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Python dependencies
-        run: pip install tldextract
-
       - name: Download tracker list
         run: |
           curl -o trackers.txt https://raw.githubusercontent.com/adysec/tracker/refs/heads/main/trackers_all.txt
@@ -34,7 +31,6 @@ jobs:
         run: |
           python -c '
           import urllib.parse
-          import tldextract
           import ipaddress
           import os
 
@@ -67,55 +63,47 @@ jobs:
                       except ValueError:
                           pass
 
-                      # Handle domains with subdomains
-                      ext = tldextract.extract(hostname)
-                      if ext.domain and ext.suffix:
-                          domains.add(f"{ext.domain}.{ext.suffix}")
+                      # Convert to lowercase and add full domain
+                      domains.add(hostname.lower())
 
                   except Exception:
                       pass
 
-          # Generate domain YAML
+          # Generate domain YAML with full domains
           domain_content = f"""# NAME: Tracker Domain List\n# SOURCE: {input_url}\npayload:\n"""
           for domain in sorted(domains):
-              domain_content += f"  - \"+.{domain}\"\n"
+              domain_content += f"  - \"DOMAIN,{domain}\"\n"
 
           # Generate IP YAML
           ip_content = f"""# NAME: Tracker IP List\n# SOURCE: {input_url}\npayload:\n"""
           for ip in sorted(ips):
-              # Check IP type to determine CIDR suffix
               if ":" in ip:  # IPv6
                   ip_content += f"  - \"{ip}/128\"\n"
               else:  # IPv4
                   ip_content += f"  - \"{ip}/32\"\n"
 
-          # Initialize changed flag
           changed = False
           github_output_path = os.environ.get("GITHUB_OUTPUT")
 
-          # Process domain file
+          # Save domain file if changed
           if os.path.exists(domain_output_file):
               with open(domain_output_file, "r") as f:
-                  existing = f.read()
-              if existing != domain_content:
-                  changed = True
-                  with open(domain_output_file, "w") as f:
-                      f.write(domain_content)
+                  if f.read() != domain_content:
+                      changed = True
           else:
               changed = True
+          if changed:
               with open(domain_output_file, "w") as f:
                   f.write(domain_content)
 
-          # Process IP file
+          # Save IP file if changed
           if os.path.exists(ip_output_file):
               with open(ip_output_file, "r") as f:
-                  existing = f.read()
-              if existing != ip_content:
-                  changed = True
-                  with open(ip_output_file, "w") as f:
-                      f.write(ip_content)
+                  if f.read() != ip_content:
+                      changed = True
           else:
               changed = True
+          if changed:
               with open(ip_output_file, "w") as f:
                   f.write(ip_content)
 
