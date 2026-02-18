@@ -1154,6 +1154,7 @@ payload:
   - "DOMAIN,u.peer-exchange.download"
   - "DOMAIN,u4.trakx.crim.ist"
   - "DOMAIN,u6.trakx.crim.ist"
+  - "DOMAIN,uabits.today"
   - "DOMAIN,uatracker.net"
   - "DOMAIN,udp-tracker.shittyurl.org"
   - "DOMAIN,udp.tracker.projectk.org"
