@@ -570,6 +570,7 @@ payload:
   - "DOMAIN,t.nyaatracker.com"
   - "DOMAIN,t.overflow.biz"
   - "DOMAIN,t.peer-exchange.download"
+  - "DOMAIN,t.pldm.ml"
   - "DOMAIN,t.publictracker.xyz"
   - "DOMAIN,t.quic.ws"
   - "DOMAIN,t.ubits.club"
