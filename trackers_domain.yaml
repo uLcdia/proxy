@@ -635,6 +635,7 @@ payload:
   - "DOMAIN,torrent-tracker.hama3.net"
   - "DOMAIN,torrent-tracker.ru"
   - "DOMAIN,torrent.arjlover.net"
+  - "DOMAIN,torrent.bowed.net"
   - "DOMAIN,torrent.fedoraproject.org"
   - "DOMAIN,torrent.gresille.org"
   - "DOMAIN,torrent.hificode.in"
