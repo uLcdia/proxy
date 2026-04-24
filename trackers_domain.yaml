@@ -556,6 +556,7 @@ payload:
   - "DOMAIN,shubt.net"
   - "DOMAIN,siambit.com"
   - "DOMAIN,siambit.org"
+  - "DOMAIN,siwserver.duckdns.org"
   - "DOMAIN,slicie.icon256.com"
   - "DOMAIN,smtp-relay.odysseylabel.com.au"
   - "DOMAIN,smtp.loki.tel"
