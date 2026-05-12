@@ -1209,6 +1209,7 @@ payload:
   - "DOMAIN,uabits.today"
   - "DOMAIN,uatracker.net"
   - "DOMAIN,udp-tracker.shittyurl.org"
+  - "DOMAIN,udp.trackarr.org"
   - "DOMAIN,udp.tracker.projectk.org"
   - "DOMAIN,udp.yarr.pt"
   - "DOMAIN,udp1.torrust-tracker-demo.com"
