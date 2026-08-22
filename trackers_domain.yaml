@@ -1207,6 +1207,7 @@ payload:
   - "DOMAIN,tracker3.leaves.red"
   - "DOMAIN,tracker3.t-1.org"
   - "DOMAIN,tracker3.torrentino.com"
+  - "DOMAIN,tracker4.finalgear.com"
   - "DOMAIN,tracker4.itzmx.com"
   - "DOMAIN,tracker4.leechshield.link"
   - "DOMAIN,tracker4.piratux.com"
