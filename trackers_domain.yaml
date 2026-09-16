@@ -1121,6 +1121,7 @@ payload:
   - "DOMAIN,tracker.torrentclaw.com"
   - "DOMAIN,tracker.torrentino.com"
   - "DOMAIN,tracker.torrentleech.org"
+  - "DOMAIN,tracker.torrents.observer"
   - "DOMAIN,tracker.torrentsnows.com"
   - "DOMAIN,tracker.torrentuje.me"
   - "DOMAIN,tracker.torrenty.org"
